@@ -1,6 +1,7 @@
 import { Header } from "./(marketing)/_components/Header";
 import { Hero } from "./(marketing)/_components/Hero";
 import { SocialProof } from "./(marketing)/_components/SocialProof";
+import { Products } from "./(marketing)/_components/Products";
 import { HowItWorks } from "./(marketing)/_components/HowItWorks";
 import { AudienceTabs } from "./(marketing)/_components/AudienceTabs";
 import { FeaturesGrid } from "./(marketing)/_components/FeaturesGrid";
@@ -21,6 +22,7 @@ export default function Home() {
       <main>
         <Hero />
         <SocialProof />
+        <Products />
         <HowItWorks />
         <FeaturesGrid />
         <AudienceTabs />

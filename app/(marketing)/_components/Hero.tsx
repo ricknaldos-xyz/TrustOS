@@ -45,13 +45,13 @@ export function Hero() {
           <Badge className="mb-6">Now in Private Beta</Badge>
 
           <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
-            The trust layer for{" "}
-            <span className="gradient-text">stablecoin payments</span>
+            The payment layer for{" "}
+            <span className="gradient-text">stablecoin commerce</span>
           </h1>
 
           <p className="mx-auto mt-6 max-w-2xl text-lg text-text-secondary md:text-xl">
-            Non-custodial escrow, dispute resolution, and buyer protection for
-            USDC payments. Built on Base. Powering cross-border commerce in
+            Escrow protection for marketplaces. Instant payments for retail.
+            USDC on Base with sub-cent fees. Powering cross-border commerce in
             Latin America and beyond.
           </p>
 

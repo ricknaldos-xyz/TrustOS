@@ -9,6 +9,11 @@ import {
 
 const faqs = [
   {
+    question: "What's the difference between TrustOS and TrustPay?",
+    answer:
+      "TrustOS is escrow-based: funds are held in a smart contract until delivery is confirmed or a dispute is resolved. Best for marketplaces, freelance, and e-commerce with shipping times. TrustPay is instant payments: funds go directly to the merchant in 2 seconds. Best for restaurants, retail, and any business where speed matters more than escrow protection. Same API, same dashboard — you choose per transaction.",
+  },
+  {
     question: "What is TrustOS?",
     answer:
       "TrustOS is a trust infrastructure for stablecoin payments. It provides non-custodial escrow, evidence-based dispute resolution, and buyer protection for USDC transactions on Base L2. Think of it as the PayPal Buyer Protection layer for crypto payments — built for cross-border commerce in LatAm and emerging markets.",
@@ -46,7 +51,12 @@ const faqs = [
   {
     question: "How much does it cost?",
     answer:
-      "1.5% fee on released escrows (deducted automatically). 0% fee on refunds — you never pay when the buyer gets their money back. $5 flat fee per dispute, paid by the losing party. PSPs get custom pricing (0.5–0.8%) with a +0.1% surcharge on sub-merchant escrows. No monthly fees on the Starter plan.",
+      "TrustOS: 1.5% fee on released escrows, 0% on refunds, $5 dispute fee (paid by losing party). TrustPay: 1% fee on instant payments, no dispute fees. Both products have free Starter tiers, and PSPs get custom pricing (0.3–0.8%). Gas costs on Base are ~$0.01 per transaction.",
+  },
+  {
+    question: "Can I use both TrustOS and TrustPay?",
+    answer:
+      "Yes! Many businesses use both. For example, a marketplace might use TrustOS for P2P transactions between unknown parties, but TrustPay for direct sales from verified merchants. You choose the mode per transaction via the API — same integration, same dashboard.",
   },
   {
     question: "Do merchants need KYC?",
@@ -69,7 +79,7 @@ export function FAQ() {
             Frequently asked questions
           </h2>
           <p className="mt-4 text-lg text-text-secondary">
-            Everything you need to know about TrustOS.
+            Everything you need to know about TrustOS and TrustPay.
           </p>
         </div>
 
