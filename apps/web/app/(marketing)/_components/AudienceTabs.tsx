@@ -11,13 +11,14 @@ const audiences = [
     label: "PSPs",
     icon: Building2,
     headline: "Add escrow protection to your entire merchant base",
-    subtitle: "Primary distribution channel",
+    subtitle: "Primary distribution channel — 10x–100x network effect",
     bullets: [
       "Multi-tenant API — onboard sub-merchants programmatically",
-      "Each PSP integration brings their entire merchant base (10x–100x network effect)",
+      "One integration = your entire merchant portfolio gets escrow protection",
       "White-label checkout widget with your branding",
       "Webhook integration for real-time payment events",
       "Revenue share on transaction fees (+0.1% PSP surcharge)",
+      "Ideal for LatAm PSPs serving cross-border sellers",
     ],
     cta: { label: "Partner with us", href: "#pricing" },
   },
@@ -54,12 +55,12 @@ const audiences = [
 ];
 
 const useCases = [
-  { title: "Cross-Border E-Commerce", description: "LatAm merchants selling globally with instant USDC settlement and buyer protection." },
-  { title: "Freelance & Services", description: "Milestone-based escrow for gig work — pay only when deliverables are confirmed." },
-  { title: "Digital Goods & Software", description: "Licenses, SaaS subscriptions, and digital products with dispute rights." },
-  { title: "Marketplace Platforms", description: "P2P marketplaces with built-in trust between unknown buyers and sellers." },
-  { title: "B2B Trade & Invoices", description: "Large-value transactions with escrow protection and net-terms via smart contracts." },
-  { title: "PSP Infrastructure", description: "Payment processors adding escrow to their rails for all their merchants at once." },
+  { title: "Cross-Border E-Commerce", description: "LatAm merchants selling to US/EU buyers with instant USDC settlement and buyer protection — no chargebacks." },
+  { title: "Freelance & Services", description: "Milestone-based escrow for gig work — pay only when deliverables are confirmed. Perfect for remote LatAm talent." },
+  { title: "Digital Goods & Software", description: "Licenses, SaaS subscriptions, and digital products with dispute rights and instant global delivery." },
+  { title: "Marketplace Platforms", description: "P2P marketplaces with built-in trust between unknown buyers and sellers across borders." },
+  { title: "B2B Trade & Invoices", description: "Large-value transactions with escrow protection and net-terms via smart contracts — ideal for import/export." },
+  { title: "PSP Infrastructure", description: "Payment processors adding escrow to their rails for all their merchants at once. One integration, entire portfolio protected." },
 ];
 
 export function AudienceTabs() {

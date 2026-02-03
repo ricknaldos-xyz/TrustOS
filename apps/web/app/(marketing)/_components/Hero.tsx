@@ -51,7 +51,8 @@ export function Hero() {
 
           <p className="mx-auto mt-6 max-w-2xl text-lg text-text-secondary md:text-xl">
             Non-custodial escrow, dispute resolution, and buyer protection for
-            USDC payments. Built on Base. Integrated in minutes.
+            USDC payments. Built on Base. Powering cross-border commerce in
+            Latin America and beyond.
           </p>
 
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">

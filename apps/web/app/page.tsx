@@ -6,6 +6,9 @@ import { AudienceTabs } from "./(marketing)/_components/AudienceTabs";
 import { FeaturesGrid } from "./(marketing)/_components/FeaturesGrid";
 import { CodeExample } from "./(marketing)/_components/CodeExample";
 import { TrustSecurity } from "./(marketing)/_components/TrustSecurity";
+import { Compliance } from "./(marketing)/_components/Compliance";
+import { Competitors } from "./(marketing)/_components/Competitors";
+import { Roadmap } from "./(marketing)/_components/Roadmap";
 import { Pricing } from "./(marketing)/_components/Pricing";
 import { FAQ } from "./(marketing)/_components/FAQ";
 import { CTABanner } from "./(marketing)/_components/CTABanner";
@@ -23,6 +26,9 @@ export default function Home() {
         <AudienceTabs />
         <CodeExample />
         <TrustSecurity />
+        <Compliance />
+        <Competitors />
+        <Roadmap />
         <Pricing />
         <FAQ />
         <CTABanner />

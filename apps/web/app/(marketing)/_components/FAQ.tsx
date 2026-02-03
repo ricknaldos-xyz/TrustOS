@@ -11,7 +11,7 @@ const faqs = [
   {
     question: "What is TrustOS?",
     answer:
-      "TrustOS is a trust infrastructure for stablecoin payments. It provides non-custodial escrow, evidence-based dispute resolution, and buyer protection for USDC transactions on Base L2. Think of it as the PayPal Buyer Protection layer for crypto payments.",
+      "TrustOS is a trust infrastructure for stablecoin payments. It provides non-custodial escrow, evidence-based dispute resolution, and buyer protection for USDC transactions on Base L2. Think of it as the PayPal Buyer Protection layer for crypto payments — built for cross-border commerce in LatAm and emerging markets.",
   },
   {
     question: "How does the escrow work?",
@@ -21,22 +21,27 @@ const faqs = [
   {
     question: "Who controls the funds?",
     answer:
-      "Nobody. The smart contract is non-custodial — no person or company, including Rowship, can withdraw escrowed funds. The arbiter can only decide between returning funds to the buyer or releasing to the seller — never to any other address. All admin operations require a 2-of-3 multisig with a 48-hour public delay.",
+      "Nobody. The smart contract is non-custodial — no person or company, including Rowship, can withdraw escrowed funds. The arbiter can only decide between returning funds to the buyer or releasing to the seller — never to any other address. All admin operations require a 2-of-3 multisig with a 48-hour public delay via TimelockController.",
+  },
+  {
+    question: "What is the protection period?",
+    answer:
+      "The protection period is configurable per escrow, typically 7–14 days. During this window, the buyer can open a dispute if there's an issue. After the period expires without dispute, funds auto-release to the merchant. Merchants can also set a delivery deadline — if they don't deliver by then, the buyer is auto-refunded.",
   },
   {
     question: "What happens if there's a dispute?",
     answer:
-      "Either party can open a dispute during the protection period. Both sides submit evidence (screenshots, tracking info, logs). The process escalates through three phases: Negotiation → Mediation → Arbitration — each with strict deadlines. If the merchant doesn't respond within 5 days, the buyer gets an automatic refund. Every case is reviewed by at least two team members (four-eyes principle). The losing party pays a $5 dispute fee.",
+      "Either party can open a dispute during the protection period. The process escalates through three phases: (1) Negotiation (3 days) — parties try to resolve directly; (2) Mediation (3 days) — a Rowship mediator facilitates; (3) Arbitration (5 days) — final binding decision. If the merchant doesn't respond within 5 days at any phase, the buyer gets an automatic refund. Every case is reviewed by at least two team members (four-eyes principle). The losing party pays a $5 dispute fee.",
   },
   {
     question: "What happens if TrustOS goes offline?",
     answer:
-      "The smart contracts are autonomous and self-executing. Anyone can call the auto-release or auto-refund functions directly on the blockchain. If a dispute expires without resolution, the contract applies deterministic rules: merchant no-show = refund to buyer, buyer abandoned = release to merchant. Your funds are never stuck.",
+      "The smart contracts are autonomous and self-executing. Anyone can call the auto-release or auto-refund functions directly on the blockchain. If a dispute expires without resolution, the contract applies deterministic rules: merchant no-show = refund to buyer, buyer abandoned = release to merchant. Your funds are never stuck — that's the beauty of non-custodial design.",
   },
   {
     question: "Which stablecoins are supported?",
     answer:
-      "Currently, TrustOS supports USDC on Base L2. Support for USDT and DAI is planned for future releases. We chose USDC on Base for its native support, sub-cent gas costs (~$0.01 per transaction), and 2-second confirmation times.",
+      "Currently, TrustOS supports USDC on Base L2. Support for USDT and DAI is planned for Q4. We chose USDC on Base for its native support, sub-cent gas costs (~$0.01 per transaction), and 2-second confirmation times.",
   },
   {
     question: "How much does it cost?",
@@ -44,9 +49,14 @@ const faqs = [
       "1.5% fee on released escrows (deducted automatically). 0% fee on refunds — you never pay when the buyer gets their money back. $5 flat fee per dispute, paid by the losing party. PSPs get custom pricing (0.5–0.8%) with a +0.1% surcharge on sub-merchant escrows. No monthly fees on the Starter plan.",
   },
   {
+    question: "Do merchants need KYC?",
+    answer:
+      "Yes. All merchants undergo Know Your Business (KYB) verification before processing live transactions. This includes identity verification, business registration, and sanctions screening. Buyers can pay with just a wallet for transactions under certain thresholds, but disputes may require identity verification.",
+  },
+  {
     question: "How do I get started?",
     answer:
-      "Sign up, get your API keys, and create your first escrow in the sandbox environment. Our quickstart guide walks you through the entire process. When you're ready to go live, switch to production API keys and you're set.",
+      "Sign up, complete KYB verification, and get your API keys. Test in our sandbox environment on Base Sepolia with testnet USDC. Our quickstart guide walks you through creating your first escrow. When you're ready, switch to production API keys and start accepting protected payments.",
   },
 ];
 
