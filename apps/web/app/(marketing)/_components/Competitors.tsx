@@ -1,7 +1,18 @@
 import { Check, X, Minus } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-const features = [
+type FeatureValue = boolean | "partial" | "planned" | "unknown" | "na";
+
+interface Feature {
+  name: string;
+  trustos: FeatureValue;
+  coinbase: FeatureValue;
+  stripe: FeatureValue;
+  kleros: FeatureValue;
+  safe: FeatureValue;
+}
+
+const features: Feature[] = [
   { name: "Non-custodial escrow", trustos: true, coinbase: true, stripe: false, kleros: true, safe: "partial" },
   { name: "Built-in dispute resolution", trustos: true, coinbase: true, stripe: false, kleros: true, safe: false },
   { name: "Sub-cent gas costs (L2)", trustos: true, coinbase: true, stripe: "na", kleros: false, safe: true },
@@ -17,14 +28,12 @@ const features = [
 ];
 
 const competitors = [
-  { id: "trustos", name: "TrustOS", highlight: true },
-  { id: "coinbase", name: "Coinbase Commerce", highlight: false },
-  { id: "stripe", name: "Stripe Crypto", highlight: false },
-  { id: "kleros", name: "Kleros", highlight: false },
-  { id: "safe", name: "Safe (Gnosis)", highlight: false },
+  { id: "trustos" as const, name: "TrustOS", highlight: true },
+  { id: "coinbase" as const, name: "Coinbase Commerce", highlight: false },
+  { id: "stripe" as const, name: "Stripe Crypto", highlight: false },
+  { id: "kleros" as const, name: "Kleros", highlight: false },
+  { id: "safe" as const, name: "Safe (Gnosis)", highlight: false },
 ];
-
-type FeatureValue = boolean | "partial" | "planned" | "unknown" | "na";
 
 function FeatureCell({ value }: { value: FeatureValue }) {
   if (value === true) {
@@ -130,7 +139,8 @@ export function Competitors() {
               <div className="mt-4 space-y-3">
                 {features.slice(0, 6).map((feature) => {
                   const trustosValue = feature.trustos;
-                  const competitorValue = feature[competitor.id as keyof typeof feature] as FeatureValue;
+                  const competitorId = competitor.id as Exclude<keyof Feature, "name">;
+                  const competitorValue = feature[competitorId];
                   const trustosWins = trustosValue === true && competitorValue !== true;
 
                   return (
