@@ -306,6 +306,223 @@ El contrato de TrustPay es significativamente más simple que el de TrustOS:
 
 ---
 
+## Modelo Operativo de Arbitraje (TrustOS)
+
+### Sistema de 3 Capas
+
+El modelo de disputas escala mediante automatización progresiva:
+
+| Capa | % Casos | Mecanismo | Costo |
+|------|---------|-----------|-------|
+| **1. Auto-resolución** | 70-85% | Timeouts, defaults, reglas on-chain | $0 |
+| **2. AI + Evidencia** | 10-15% | Estructuración automática, detección de abuso | ~$0.50/caso |
+| **3. Humano/Kleros** | 5-15% | Casos complejos con arbitraje formal | ~$5/caso (cubierto por fee) |
+
+### Capa 1: Auto-resolución (70-85% de casos)
+
+**Reglas automáticas:**
+- Si merchant no marca "enviado" en 7 días → Auto-refund
+- Si buyer no disputa en período de protección → Auto-release
+- Si merchant acepta refund voluntario → Ejecución inmediata
+
+**Defaults claros:**
+- Timeout de respuesta: 72 horas
+- Período de protección estándar: 14 días
+- Evidencia requerida: fotos, tracking, comunicación
+
+### Capa 2: AI + Evidencia (10-15% de casos)
+
+**Funciones del sistema AI:**
+- Estructurar evidencia de ambas partes
+- Detectar patrones de abuso (disputas seriales, evidencia falsa)
+- Sugerir resolución basada en casos similares
+- Escalar a humano si confianza < 80%
+
+### Capa 3: Arbitraje Humano/Kleros (5-15% de casos)
+
+**Para casos complejos:**
+- Evidencia contradictoria
+- Montos altos (>$1,000)
+- Apelaciones de resolución automática
+
+**Opciones de arbitraje:**
+1. **Equipo Rowship** — Fase inicial, SLA garantizado
+2. **Kleros** — Arbitraje descentralizado (integración futura)
+3. **Partner arbitral** — Para verticales específicas
+
+### SLAs de Resolución
+
+| Tipo de Caso | Tiempo Máximo | Respuesta Inicial |
+|--------------|---------------|-------------------|
+| Auto-resolución | Inmediato | - |
+| AI + Evidencia | 72 horas | <24 horas |
+| Arbitraje humano | 14 días | <24 horas |
+
+### Dispute Fee: $5
+
+- **Pagado por:** Parte perdedora
+- **Propósito:** Cubrir costo operativo, desincentivizar disputas frívolas
+- **Exención:** Casos donde merchant no responde (merchant paga)
+
+---
+
+## Regulación y Compliance
+
+### Arquitectura No Custodial
+
+**Por qué importa:**
+- Fondos en smart contract, nunca en cuentas de Rowship
+- Árbitro solo puede decidir destino (refund o release), no desviar
+- Reduce requisitos de licenciamiento en la mayoría de jurisdicciones
+
+**Limitaciones del árbitro:**
+```
+✓ Puede: Autorizar refund al buyer original
+✓ Puede: Autorizar release al merchant original
+✗ No puede: Enviar fondos a terceros
+✗ No puede: Retener fondos indefinidamente
+```
+
+### KYC/AML
+
+| Actor | Requisito | Umbral |
+|-------|-----------|--------|
+| **Merchants** | KYC completo obligatorio | Todos |
+| **Compradores** | KYC simplificado | Transacciones >$1,000 |
+| **PSPs** | KYB + due diligence | Todos |
+
+**Proceso de verificación:**
+1. Verificación de identidad (documento + selfie)
+2. Verificación de negocio (para merchants)
+3. Screening contra listas de sanciones (OFAC, UE, ONU)
+4. Monitoreo continuo de transacciones
+
+### Por Jurisdicción
+
+| Región | Estrategia | Status |
+|--------|------------|--------|
+| **LatAm** | Alianza con PSPs locales con licencias | Prioridad |
+| **EE.UU.** | Evaluación caso por caso (Travel Rule) | Fase 2 |
+| **Europa** | Preparación para MiCA | Fase 3 |
+
+### Travel Rule
+
+- Transacciones >$1,000 entre VASPs requieren intercambio de datos
+- Rowship implementará protocolo compatible (OpenVASP o similar)
+- Para P2P sin VASP, no aplica actualmente
+
+---
+
+## Go-to-Market
+
+### Geografía Inicial: LatAm
+
+**Por qué LatAm:**
+- 12.1% de la población usa cripto (57M personas)
+- Brasil: 90%+ del flujo cripto es en stablecoins
+- México: Corredor de remesas de $51B
+- Argentina: Alta adopción por inflación persistente
+- Menos competencia que EE.UU./Europa
+
+### Estrategia por Producto
+
+**TrustPay (Entrada):**
+- Menor fricción → Adopción más rápida
+- Target: Restaurantes, delivery, retail
+- Canal: Apps de delivery, POS providers, integraciones directas
+- Meta: Volumen de transacciones
+
+**TrustOS (Upsell):**
+- Para merchants que ya usan TrustPay
+- Cuando necesitan protección (pedidos grandes, clientes nuevos)
+- Target: Marketplaces, freelancers, e-commerce internacional
+- Canal: PSPs, plugins Shopify/WooCommerce
+- Meta: Revenue por transacción
+
+### Canales de Distribución
+
+| Canal | Producto | Prioridad |
+|-------|----------|-----------|
+| PSPs en LatAm | Ambos | Alta |
+| Plugins e-commerce | TrustOS | Alta |
+| Apps de delivery | TrustPay | Media |
+| Integraciones directas | Ambos | Media |
+| Marketplaces crypto | TrustOS | Baja |
+
+### Ejemplo: Wantan Clan (Delivery)
+
+```
+Flujo TrustPay para delivery:
+
+1. Cliente pide comida → Paga USDC via TrustPay
+2. Pago confirmado (2 seg) → Restaurante ve notificación
+3. Restaurante prepara pedido
+4. Delivery entrega
+5. Si problema → Restaurante resuelve (reenvío, crédito)
+
+¿Por qué TrustPay y no TrustOS?
+- Entrega en minutos, no días
+- Problemas se resuelven fácil
+- Escrow agregaría fricción innecesaria
+```
+
+---
+
+## Proyecciones Financieras
+
+### Unit Economics
+
+**TrustOS (por $100 transacción):**
+```
+Revenue (1.5%):                   $1.50
+- Gas en Base L2:                -$0.01
+- Infra (servidores, APIs):      -$0.05
+- Compliance (screening):        -$0.10
+- Disputas (5% tasa × $0.80):    -$0.04
+─────────────────────────────────────────
+Margen bruto:                     $1.30 (87%)
+```
+
+**TrustPay (por $30 transacción promedio):**
+```
+Revenue (0.75%):                  $0.225
+- Gas en Base L2:                -$0.01
+- Infra:                         -$0.02
+─────────────────────────────────────────
+Margen bruto:                     $0.195 (87%)
+```
+
+### Proyección Año 1 (Escenario Conservador)
+
+| Métrica | Q1 | Q2 | Q3 | Q4 | Total |
+|---------|-----|-----|------|-------|-------|
+| **GMV** | $100K | $500K | $2M | $7.4M | $10M |
+| **Revenue** | $1.3K | $6.5K | $26K | $96K | $130K |
+| **Merchants** | 10 | 30 | 60 | 100 | 100 |
+| **Transacciones** | 500 | 2,500 | 10K | 37K | 50K |
+
+**Mix de productos (Año 1):**
+- TrustOS: 70% del GMV (transacciones más grandes)
+- TrustPay: 30% del GMV (más transacciones, menor valor)
+
+### Break-even
+
+| Escenario | Gastos/mes | GMV necesario |
+|-----------|------------|---------------|
+| **Lean (fundadores sin salario)** | $3,500 | $292K/mes |
+| **Equipo pequeño (3 personas)** | $15,000 | $1.25M/mes |
+| **Equipo full** | $32,000 | $2.7M/mes |
+
+### Sensibilidad a Variables Clave
+
+| Variable | Impacto en Revenue |
+|----------|-------------------|
+| Tasa de disputa +1% | -2% revenue (más costos de arbitraje) |
+| Fee promedio -0.1% | -8% revenue |
+| GMV +10% | +10% revenue (lineal) |
+
+---
+
 ## Métricas Clave de Éxito
 
 ### Métricas compartidas
@@ -318,11 +535,17 @@ El contrato de TrustPay es significativamente más simple que el de TrustOS:
 - **Tasa de Disputa** — % transacciones que escalan a disputa (<5% ideal)
 - **Tiempo de Resolución** — Promedio días para resolver disputa (<7 días)
 - **Tasa de Resolución Exitosa** — % disputas resueltas satisfactoriamente (>95%)
+- **Tasa de Auto-resolución** — % disputas resueltas sin humano (>70% target)
 
 ### Métricas TrustPay
 - **Tiempo de Confirmación** — Segundos promedio (~2s)
 - **Tasa de Conversión** — % checkouts completados
 - **Volumen por Merchant** — Transacciones/mes promedio
+
+### Métricas de Adquisición
+- **CAC** — Costo de adquisición por merchant ($50-100 target)
+- **LTV** — Lifetime value por merchant ($500-2,000 a 12 meses)
+- **LTV/CAC** — Ratio saludable (>5x)
 
 ---
 

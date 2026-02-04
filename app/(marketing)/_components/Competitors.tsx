@@ -1,34 +1,36 @@
-import { Check, X, Minus } from "lucide-react";
+import { Check, X, Minus, Shield, Zap } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 type FeatureValue = boolean | "partial" | "planned" | "unknown" | "na";
 
 interface Feature {
   name: string;
-  trustos: FeatureValue;
+  rowship: FeatureValue;
   coinbase: FeatureValue;
   stripe: FeatureValue;
   kleros: FeatureValue;
   safe: FeatureValue;
+  note?: string;
 }
 
 const features: Feature[] = [
-  { name: "Non-custodial escrow", trustos: true, coinbase: true, stripe: false, kleros: true, safe: "partial" },
-  { name: "Built-in dispute resolution", trustos: true, coinbase: true, stripe: false, kleros: true, safe: false },
-  { name: "Sub-cent gas costs (L2)", trustos: true, coinbase: true, stripe: "na", kleros: false, safe: true },
-  { name: "Plug-and-play checkout", trustos: true, coinbase: true, stripe: true, kleros: false, safe: false },
-  { name: "No crypto knowledge required", trustos: true, coinbase: true, stripe: true, kleros: false, safe: false },
-  { name: "Fast dispute resolution (<7 days)", trustos: true, coinbase: "unknown", stripe: true, kleros: false, safe: "na" },
-  { name: "Decentralized arbitration option", trustos: "planned", coinbase: false, stripe: false, kleros: true, safe: false },
-  { name: "Global availability (no geo-restrictions)", trustos: true, coinbase: false, stripe: false, kleros: true, safe: true },
-  { name: "LatAm-focused support", trustos: true, coinbase: false, stripe: false, kleros: false, safe: false },
-  { name: "Open-source contracts", trustos: true, coinbase: true, stripe: false, kleros: true, safe: true },
-  { name: "Multi-tenant PSP API", trustos: true, coinbase: false, stripe: true, kleros: false, safe: false },
-  { name: "Fiat off-ramp integration", trustos: "planned", coinbase: true, stripe: true, kleros: false, safe: false },
+  { name: "Escrow protection", rowship: true, coinbase: true, stripe: false, kleros: true, safe: "partial", note: "TrustOS" },
+  { name: "Instant payments (2 sec)", rowship: true, coinbase: false, stripe: true, kleros: false, safe: false, note: "TrustPay" },
+  { name: "Built-in dispute resolution", rowship: true, coinbase: true, stripe: false, kleros: true, safe: false, note: "TrustOS" },
+  { name: "Sub-cent gas costs (L2)", rowship: true, coinbase: true, stripe: "na", kleros: false, safe: true },
+  { name: "Plug-and-play checkout", rowship: true, coinbase: true, stripe: true, kleros: false, safe: false },
+  { name: "No crypto knowledge required", rowship: true, coinbase: true, stripe: true, kleros: false, safe: false },
+  { name: "Choose escrow or direct per tx", rowship: true, coinbase: false, stripe: false, kleros: false, safe: false },
+  { name: "Fast dispute resolution (<7 days)", rowship: true, coinbase: "unknown", stripe: true, kleros: false, safe: "na", note: "TrustOS" },
+  { name: "Decentralized arbitration option", rowship: "planned", coinbase: false, stripe: false, kleros: true, safe: false },
+  { name: "Global availability (no geo-restrictions)", rowship: true, coinbase: false, stripe: false, kleros: true, safe: true },
+  { name: "LatAm-focused support", rowship: true, coinbase: false, stripe: false, kleros: false, safe: false },
+  { name: "Multi-tenant PSP API", rowship: true, coinbase: false, stripe: true, kleros: false, safe: false },
+  { name: "Fiat off-ramp integration", rowship: "planned", coinbase: true, stripe: true, kleros: false, safe: false },
 ];
 
 const competitors = [
-  { id: "trustos" as const, name: "TrustOS", highlight: true },
+  { id: "rowship" as const, name: "Rowship", highlight: true },
   { id: "coinbase" as const, name: "Coinbase Commerce", highlight: false },
   { id: "stripe" as const, name: "Stripe Crypto", highlight: false },
   { id: "kleros" as const, name: "Kleros", highlight: false },
@@ -60,11 +62,10 @@ export function Competitors() {
       <div className="mx-auto max-w-6xl px-6">
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-            How TrustOS compares
+            How Rowship compares
           </h2>
           <p className="mt-4 text-lg text-text-secondary">
-            We combine the best of decentralized escrow with the UX of
-            traditional payment processors.
+            Two products. Complete coverage. <span className="inline-flex items-center gap-1"><Shield className="h-4 w-4 text-primary" /> TrustOS</span> for escrow + disputes, <span className="inline-flex items-center gap-1"><Zap className="h-4 w-4 text-accent" /> TrustPay</span> for instant payments.
           </p>
         </div>
 
@@ -96,10 +97,20 @@ export function Competitors() {
                     i % 2 === 0 && "bg-surface/50"
                   )}
                 >
-                  <td className="py-3 pr-6 text-text-secondary">{feature.name}</td>
+                  <td className="py-3 pr-6 text-text-secondary">
+                    <span>{feature.name}</span>
+                    {feature.note && (
+                      <span className={cn(
+                        "ml-2 text-xs px-1.5 py-0.5 rounded",
+                        feature.note === "TrustOS" ? "bg-primary/10 text-primary" : "bg-accent/10 text-accent"
+                      )}>
+                        {feature.note}
+                      </span>
+                    )}
+                  </td>
                   <td className="py-3 px-4 text-center">
                     <div className="flex justify-center">
-                      <FeatureCell value={feature.trustos} />
+                      <FeatureCell value={feature.rowship} />
                     </div>
                   </td>
                   <td className="py-3 px-4 text-center">
@@ -135,27 +146,27 @@ export function Competitors() {
               key={competitor.id}
               className="rounded-xl border border-border bg-surface p-6"
             >
-              <h3 className="font-semibold">TrustOS vs {competitor.name}</h3>
+              <h3 className="font-semibold">Rowship vs {competitor.name}</h3>
               <div className="mt-4 space-y-3">
-                {features.slice(0, 6).map((feature) => {
-                  const trustosValue = feature.trustos;
-                  const competitorId = competitor.id as Exclude<keyof Feature, "name">;
+                {features.slice(0, 7).map((feature) => {
+                  const rowshipValue = feature.rowship;
+                  const competitorId = competitor.id as Exclude<keyof Feature, "name" | "note">;
                   const competitorValue = feature[competitorId];
-                  const trustosWins = trustosValue === true && competitorValue !== true;
+                  const rowshipWins = rowshipValue === true && competitorValue !== true;
 
                   return (
                     <div
                       key={feature.name}
                       className={cn(
                         "flex items-center justify-between text-sm",
-                        trustosWins && "text-success"
+                        rowshipWins && "text-success"
                       )}
                     >
                       <span className="text-text-secondary">{feature.name}</span>
                       <div className="flex items-center gap-4">
                         <div className="flex items-center gap-1">
                           <span className="text-xs text-text-muted">Us:</span>
-                          <FeatureCell value={trustosValue} />
+                          <FeatureCell value={rowshipValue} />
                         </div>
                         <div className="flex items-center gap-1">
                           <span className="text-xs text-text-muted">Them:</span>
@@ -175,22 +186,22 @@ export function Competitors() {
           <div className="rounded-xl border border-border bg-surface p-6">
             <h4 className="font-semibold text-primary">vs Coinbase Commerce</h4>
             <p className="mt-2 text-sm text-text-secondary">
-              Similar escrow model, but TrustOS is globally available and
-              focuses on underserved markets like LatAm. No platform lock-in.
+              Similar escrow, but Rowship offers instant payments too. Globally available,
+              LatAm-focused. No platform lock-in.
             </p>
           </div>
           <div className="rounded-xl border border-border bg-surface p-6">
-            <h4 className="font-semibold text-primary">vs Stripe Crypto</h4>
+            <h4 className="font-semibold text-accent">vs Stripe Crypto</h4>
             <p className="mt-2 text-sm text-text-secondary">
-              Stripe is custodial and US-only. TrustOS is non-custodial,
-              globally accessible, and keeps funds in USDC (no forced fiat conversion).
+              TrustPay matches Stripe&apos;s speed. TrustOS adds escrow protection they don&apos;t have.
+              Non-custodial and globally accessible.
             </p>
           </div>
           <div className="rounded-xl border border-border bg-surface p-6">
             <h4 className="font-semibold text-primary">vs Kleros</h4>
             <p className="mt-2 text-sm text-text-secondary">
-              Kleros offers decentralized arbitration but requires crypto expertise.
-              TrustOS provides a simple checkout UX with Kleros integration planned.
+              Kleros does arbitration only. We do full payment flow with
+              plug-and-play checkout. Kleros integration planned for decentralized disputes.
             </p>
           </div>
         </div>

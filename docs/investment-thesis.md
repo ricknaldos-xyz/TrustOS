@@ -250,18 +250,69 @@ No necesita escrow porque:
 | TrustPay | 1% por pago | 0.5% |
 | Disputas | $5 fee (paga perdedor) | Incluido |
 
+### Unit Economics Detallados
+
+**Por $100 transacción TrustOS:**
+```
+Revenue (1.5%):                   $1.50
+- Gas en Base L2:                -$0.01
+- Infra (servidores, APIs):      -$0.05
+- Compliance (KYC/screening):    -$0.10
+- Disputas (5% × $0.80 neto):    -$0.04
+─────────────────────────────────────────
+Margen bruto:                     $1.30 (87%)
+```
+
+**Por $30 transacción TrustPay (ticket promedio delivery):**
+```
+Revenue (0.75%):                  $0.225
+- Gas en Base L2:                -$0.01
+- Infra:                         -$0.02
+─────────────────────────────────────────
+Margen bruto:                     $0.195 (87%)
+```
+
+**Por qué el margen es alto:**
+- Infraestructura blockchain tiene costo marginal ~0
+- Base L2 tiene gas de ~$0.01 (vs $5-50 en Ethereum mainnet)
+- Sin costos de interchange como tarjetas (1.5-2%)
+- Automatización reduce costos operativos
+
 ### Proyección de revenue
 
-Asumiendo:
-- Año 1: $10M GMV (70% TrustOS, 30% TrustPay)
-- Año 2: $50M GMV (60% TrustOS, 40% TrustPay)
-- Año 3: $200M GMV (50% TrustOS, 50% TrustPay)
+| Año | GMV | Revenue Est. | Blended Rate | Merchants |
+|-----|-----|--------------|--------------|-----------|
+| 1 | $10M | $130K | 1.3% | 100 |
+| 2 | $50M | $575K | 1.15% | 500 |
+| 3 | $200M | $2M | 1.0% | 2,000 |
 
-| Año | GMV | Revenue Est. | Blended Rate |
-|-----|-----|--------------|--------------|
-| 1 | $10M | $130K | 1.3% |
-| 2 | $50M | $575K | 1.15% |
-| 3 | $200M | $2M | 1.0% |
+**Supuestos:**
+- Año 1: 70% TrustOS, 30% TrustPay (merchants early adopters prefieren escrow)
+- Año 2: 60% TrustOS, 40% TrustPay (TrustPay crece con retail/delivery)
+- Año 3: 50% TrustOS, 50% TrustPay (equilibrio)
+
+### Métricas de Adquisición
+
+| Métrica | Target | Notas |
+|---------|--------|-------|
+| **CAC** | $50-100 | Por merchant |
+| **LTV** | $500-2,000 | A 12 meses |
+| **LTV/CAC** | 5-20x | Saludable para SaaS/fintech |
+| **Payback** | 2-4 meses | Tiempo para recuperar CAC |
+
+**Canales de adquisición por costo:**
+1. **PSP partnerships** — CAC ~$20 (ellos traen merchants)
+2. **Plugins e-commerce** — CAC ~$0 (orgánico)
+3. **Content marketing** — CAC ~$50
+4. **Sales directo** — CAC ~$150 (solo enterprise)
+
+### Break-even Analysis
+
+| Escenario | Gastos/mes | GMV necesario | Timeline |
+|-----------|------------|---------------|----------|
+| **Lean** | $3,500 | $292K/mes | Q2-Q3 |
+| **Growth** | $15,000 | $1.25M/mes | Q4-Y2 |
+| **Scale** | $32,000 | $2.7M/mes | Y2 |
 
 ---
 
@@ -316,10 +367,51 @@ Asumiendo:
 | Competencia (Coinbase) | Neutralidad, estrategia dual, foco LatAm |
 | Seguridad | Auditorías múltiples, bug bounty, multi-sig |
 | Adopción | Piloto con PSP, plugins e-commerce, UX superior |
+| Tasa de disputa alta | Sistema de 3 capas, auto-resolución, AI |
+| Volumen insuficiente | TrustPay como entrada (más volumen, menos fricción) |
+
+### Análisis de riesgos por probabilidad/impacto
+
+| Riesgo | Probabilidad | Impacto | Prioridad |
+|--------|--------------|---------|-----------|
+| Hack/exploit de contratos | Baja | Crítico | Alta |
+| Competidor copia modelo | Media | Medio | Media |
+| Regulación adversa | Baja | Alto | Alta |
+| Tasa de disputa >10% | Media | Medio | Media |
+| PSP partner falla | Baja | Medio | Baja |
 
 ---
 
-## 13. Ventaja del equipo
+## 13. Tokenomics
+
+### Posición actual: Sin token en Fase 1-2
+
+**Razones para no tener token inicialmente:**
+1. **Simplifica regulación** — Evita clasificación como security
+2. **Evita distracción** — Foco en producto, no en token economics
+3. **No necesario** — El modelo de negocio funciona con fees en USDC
+4. **Credibilidad** — Demuestra que el valor viene del producto, no del token
+
+### Evaluación futura (Fase 3+)
+
+**Posibles casos de uso para un token:**
+- Gobernanza de árbitros descentralizados
+- Staking para dispute resolution (skin in the game)
+- Descuentos en fees para holders
+- Incentivos para early adopters
+
+**Criterios para lanzar token:**
+1. Producto probado con tracción real
+2. Caso de uso claro que agregue valor (no solo fundraising)
+3. Marco regulatorio claro
+4. Comunidad activa que lo demande
+
+**Posición para inversores:**
+> "Consideraremos un token solo si agrega valor real al ecosistema. No usaremos tokenomics como mecanismo de fundraising o hype."
+
+---
+
+## 14. Ventaja del equipo
 
 - **Experiencia blockchain:** Ex-Ava Labs, lanzamiento de L1
 - **Producto fintech:** Ex-Capital One, Wayfair
